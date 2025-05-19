@@ -1,0 +1,255 @@
+{% extends "base.html" %}
+
+{% block title %}Savings{% endblock %}
+
+{% block content %}
+<style>
+    /* Navbar styles (consistent with other pages) */
+    .navbar {
+        background-color: #191970 !important;
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid rgba(173, 216, 230, 0.2);
+    }
+
+    /* Footer styles (consistent with other pages) */
+    footer {
+        background-color: #191970 !important;
+        backdrop-filter: blur(8px);
+        border-top: 1px solid rgba(173, 216, 230, 0.2);
+        color: white;
+        padding: 2rem 0;
+        margin-top: 3rem;
+    }
+
+    :root {
+        --primary-color: #ADD8E6; /* Light blue for headings */
+        --secondary-color: #FF6B6B; /* Coral for accents */
+        --text-color: #FFFFFF; /* White for main text */
+        --shadow-md: 0 4px 6px rgba(0,0,0,0.3);
+    }
+
+    body {
+        background: linear-gradient(rgba(10, 10, 42, 0.85), rgba(10, 10, 42, 0.85)),
+                    url('{{ url_for("static", filename="images/23.jpg") }}'); /* Use the same background */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: var(--text-color);
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        line-height: 1.6;
+        scroll-behavior: smooth;
+    }
+
+    /* Main container styling */
+    .savings-section {
+        padding: 4rem 0;
+        background-color: rgba(25, 25, 112, 0.2); /* Semi-transparent dark blue */
+        backdrop-filter: blur(8px);
+        border-radius: 15px;
+        box-shadow: var(--shadow-md);
+        margin: 2rem auto;
+        border: 1px solid rgba(173, 216, 230, 0.2);
+    }
+
+    /* Card styling */
+    .card {
+        background-color: rgba(25, 25, 112, 0.3) !important;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(173, 216, 230, 0.2) !important;
+        border-radius: 10px !important;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin-bottom: 1.5rem;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .card-header {
+        background-color: rgba(25, 25, 112, 0.4) !important;
+        border-bottom: 1px solid rgba(173, 216, 230, 0.2) !important;
+        color: var(--primary-color);
+        font-weight: 600;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        padding: 1rem 1.5rem;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .card-title {
+        margin-bottom: 0;
+        font-size: 1.5rem;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+        color: var(--text-color);
+        opacity: 0.9;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--primary-color);
+        font-weight: 600;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .lead {
+        color: var(--text-color);
+        font-size: 1.2rem;
+        opacity: 0.9;
+    }
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+    }
+
+    li::before {
+        content: "\f00c"; /* Font Awesome checkmark icon */
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        color: var(--secondary-color);
+        margin-right: 0.75rem;
+        font-size: 1rem;
+    }
+
+    .btn-primary {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        color: var(--text-color);
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #d35400;
+        border-color: #d35400;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .alert-info {
+        background-color: rgba(173, 216, 230, 0.15) !important;
+        border-color: rgba(173, 216, 230, 0.2) !important;
+        color: var(--primary-color) !important;
+        padding: 1rem 1.5rem;
+        border-radius: 10px;
+        margin-top: 2rem;
+    }
+
+    .alert-link {
+        color: var(--secondary-color) !important;
+        font-weight: bold;
+    }
+</style>
+
+
+    <h1><i class="fas fa-piggy-bank icon-sm"></i> Savings Accounts</h1>
+    <p class="lead"><i class="fas fa-chart-line icon-sm"></i> Build your financial future with our savings plans.</p>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h2 class="card-title mb-0"><i class="fas fa-question-circle icon-sm"></i> Why Save With DCU?</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <ul>
+                        <li>Competitive interest rates</li>
+                        <li>Flexible savings options</li>
+                        <li>Secure and insured</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul>
+                        <li>Member-owned institution</li>
+                        <li>Supports your loan applications</li>
+                        <li>Dividends on shares</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2><i class="fas fa-list-ul icon-sm"></i> Types of Savings Accounts</h2>
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h3 class="card-title mb-0"><i class="fas fa-coins icon-sm"></i> Share Capital Account</h3>
+                </div>
+                <div class="card-body">
+                    <p>Ownership shares that qualify members for dividends.</p>
+                    <ul>
+                        <li>Non-withdrawable</li>
+                        <li>Transferable</li>
+                        <li>Annual dividends</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h3 class="card-title mb-0"><i class="fas fa-lock icon-sm"></i> Fixed Savings Account</h3>
+                </div>
+                <div class="card-body">
+                    <p>Term-based savings with higher interest.</p>
+                    <ul>
+                        <li>3, 6, or 12 month terms</li>
+                        <li>Interest paid on maturity</li>
+                        <li>Higher rates for longer terms</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h3 class="card-title mb-0"><i class="fas fa-gift icon-sm"></i> Christmas Savings</h3>
+                </div>
+                <div class="card-body">
+                    <p>Save gradually for the holiday season.</p>
+                    <ul>
+                        <li>Withdraw in November-December</li>
+                        <li>Bonus interest</li>
+                        <li>Discipline your savings</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h3 class="card-title mb-0"><i class="fas fa-users icon-sm"></i> Group Savings</h3>
+                </div>
+                <div class="card-body">
+                    <p>Designed for clubs and associations.</p>
+                    <ul>
+                        <li>Collective savings power</li>
+                        <li>Special rates for groups</li>
+                        <li>Multiple signatories</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if current_user.is_authenticated %}
+        <div class="text-center mt-4">
+            <a href="{{ url_for('open_account') }}" class="btn btn-primary btn-lg"><i class="fas fa-plus-circle icon-sm"></i> Open a Savings Account</a>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <p><i class="fas fa-info-circle icon-sm"></i> You need to be a member to open savings accounts. <a href="{{ url_for('auth.register') }}" class="alert-link"><i class="fas fa-user-plus icon-sm"></i> Register now</a> or <a href="{{ url_for('auth.login') }}" class="alert-link"><i class="fas fa-sign-in-alt icon-sm"></i> login</a> if you already have an account.</p>
+        </div>
+    {% endif %}
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+{% endblock %}

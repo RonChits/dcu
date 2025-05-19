@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}FAQ{% endblock %}
+
+{% block content %}
+<h1>Frequently Asked Questions</h1>
+<p class="lead">Find answers to common questions about our services.</p>
+
+<div class="accordion" id="faqAccordion">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                What is a Credit Union?
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+                A credit union is a member-owned, not-for-profit financial cooperative. Unlike banks that are driven by profit, credit unions exist to serve their members. They provide a safe place to save and access affordable credit, often at more favourable rates than commercial banks. Members benefit from dividends and have a say in how the credit union is run.
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                Who owns the Credit Union?
+            </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+                Diaspora Credit Union is entirely owned and controlled by its members. Each member has an equal vote in electing the board of directors, regardless of how much they have saved or borrowed.
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                How do I become eligible for a loan?
+            </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+                Members become eligible to apply for a loan after maintaining active membership for at least three months and fulfilling all requirements for their chosen loan product. You'll need to have regular savings deposits and may need guarantors depending on the loan amount.
+            </div>
+        </div>
+    </div>
+
+    <!-- Add more FAQ items following the same pattern -->
+</div>
+
+<div class="card mt-4">
+    <div class="card-body text-center">
+        <h3>Still have questions?</h3>
+        <p>Contact us for more information</p>
+        <a href="{{ url_for('contact') }}" class="btn btn-primary">Contact Us</a>
+    </div>
+</div>
+{% endblock %}

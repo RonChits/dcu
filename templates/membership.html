@@ -1,0 +1,280 @@
+{% extends "base.html" %}
+
+{% block title %}Membership{% endblock %}
+
+{% block content %}
+<style>
+    /* Navbar styles (consistent with About Us) */
+    .navbar {
+        background-color: #191970 !important;
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid rgba(173, 216, 230, 0.2);
+    }
+
+    /* Footer styles (consistent with About Us) */
+    footer {
+        background-color: #191970 !important;
+        backdrop-filter: blur(8px);
+        border-top: 1px solid rgba(173, 216, 230, 0.2);
+        color: white;
+        padding: 2rem 0;
+        margin-top: 3rem;
+    }
+
+    :root {
+        --primary-color: #ADD8E6; /* Light blue for headings */
+        --secondary-color: #FF6B6B; /* Coral for accents */
+        --text-color: #FFFFFF; /* White for main text */
+        --shadow-md: 0 4px 6px rgba(0,0,0,0.3);
+    }
+
+    body {
+        background: linear-gradient(rgba(10, 10, 42, 0.85), rgba(10, 10, 42, 0.85)),
+                    url('{{ url_for("static", filename="images/23.jpg") }}'); /* Use the same background */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: var(--text-color);
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        line-height: 1.6;
+        scroll-behavior: smooth;
+    }
+
+    /* Main container styling (consistent with About Us) */
+    .membership-section {
+        padding: 4rem 0;
+        background-color: rgba(25, 25, 112, 0.2); /* Semi-transparent dark blue */
+        backdrop-filter: blur(8px);
+        border-radius: 15px;
+        box-shadow: var(--shadow-md);
+        margin: 2rem auto;
+        border: 1px solid rgba(173, 216, 230, 0.2);
+    }
+
+    /* Card styling (consistent with About Us) */
+    .card {
+        background-color: rgba(25, 25, 112, 0.3) !important;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(173, 216, 230, 0.2) !important;
+        border-radius: 10px !important;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin-bottom: 1.5rem;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .card-header {
+        background-color: rgba(25, 25, 112, 0.4) !important;
+        border-bottom: 1px solid rgba(173, 216, 230, 0.2) !important;
+    }
+
+    /* Text styling (consistent with About Us) */
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--primary-color);
+        font-weight: 600;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .lead {
+        color: var(--text-color);
+        font-size: 1.2rem;
+        opacity: 0.9;
+    }
+
+    .card-text, .list-group-item, th, td {
+        color: var(--text-color);
+        opacity: 0.9;
+    }
+
+    /* Icon styling (consistent with About Us) */
+    .icon-sm {
+        font-size: 1.2rem;
+        margin-right: 0.5rem;
+        color: var(--secondary-color);
+    }
+
+    /* List group items (consistent with About Us) */
+    .list-group-item {
+        background-color: transparent !important;
+        border-color: rgba(173, 216, 230, 0.2) !important;
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1.25rem;
+        transition: all 0.3s ease;
+    }
+
+    .list-group-item:hover {
+        background-color: rgba(173, 216, 230, 0.1) !important;
+        transform: translateX(5px);
+    }
+
+    /* Table styling */
+    .table-responsive {
+        margin-bottom: 2rem;
+    }
+
+    .table {
+        width: 100%;
+        margin-bottom: 1rem;
+        color: var(--text-color);
+    }
+
+    .table th,
+    .table td {
+        padding: 0.75rem;
+        vertical-align: top;
+        border-top: 1px solid rgba(173, 216, 230, 0.2);
+        text-align: left;
+    }
+
+    .table thead th {
+        vertical-align: bottom;
+        border-bottom: 2px solid rgba(173, 216, 230, 0.2);
+        color: var(--primary-color);
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(173, 216, 230, 0.05);
+    }
+
+    .table-bordered {
+        border: 1px solid rgba(173, 216, 230, 0.2);
+    }
+
+    .table-bordered th,
+    .table-bordered td {
+        border: 1px solid rgba(173, 216, 230, 0.2);
+    }
+
+    .table-primary,
+    .table-primary > th,
+    .table-primary > td {
+        background-color: rgba(173, 216, 230, 0.15);
+    }
+
+    .table-primary th,
+    .table-primary td {
+        border-color: rgba(173, 216, 230, 0.2);
+        color: var(--primary-color);
+    }
+
+    /* Button styling */
+    .btn-primary {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        color: var(--text-color);
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #d35400;
+        border-color: #d35400;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+</style>
+
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h1><i class="fas fa-users icon-sm"></i> Membership Information</h1>
+            <p class="lead"><i class="fas fa-handshake icon-sm"></i> Join our cooperative and enjoy financial benefits.</p>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h2 class="mb-0"><i class="fas fa-question-circle icon-sm"></i> Who Can Join?</h2>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><i class="fas fa-globe-africa icon-sm"></i> Zimbabweans living in the Diaspora</li>
+                <li class="list-group-item"><i class="fas fa-home icon-sm"></i> Friends and relatives in Zimbabwe</li>
+                <li class="list-group-item"><i class="fas fa-user-plus icon-sm"></i> All interested individuals within Zimbabwe</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2><i class="fas fa-list-alt icon-sm"></i> Membership Categories and Requirements</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead class="table-primary">
+                        <tr>
+                            <th><i class="fas fa-tag icon-sm"></i> Category</th>
+                            <th><i class="fas fa-coins icon-sm"></i> Registration Fee</th>
+                            <th><i class="fas fa-chart-line icon-sm"></i> Minimum Shares</th>
+                            <th><i class="fas fa-calendar-alt icon-sm"></i> Monthly Deposit</th>
+                            <th><i class="fas fa-dollar-sign icon-sm"></i> Service Charge</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><i class="fas fa-plane icon-sm"></i> Diaspora Based Members</td>
+                            <td>$30 (non-refundable)</td>
+                            <td>10 shares @ $10 each</td>
+                            <td>$50</td>
+                            <td>$5</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-city icon-sm"></i> Zimbabwe Urban-Based</td>
+                            <td>$20 (non-refundable)</td>
+                            <td>5 shares @ $10 each</td>
+                            <td>$30</td>
+                            <td>$5</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-tree icon-sm"></i> Zimbabwe Rural-Based</td>
+                            <td>$10 (non-refundable)</td>
+                            <td>2 shares @ $10 each</td>
+                            <td>$10</td>
+                            <td>$5</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="mb-0"><i class="fas fa-clipboard-check icon-sm"></i> Joining Requirements</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-file-alt icon-sm"></i> Completed Membership Application Form</li>
+                        <li class="list-group-item"><i class="fas fa-id-card icon-sm"></i> Copy of National ID or Passport</li>
+                        <li class="list-group-item"><i class="fas fa-portrait icon-sm"></i> Passport-sized Photo</li>
+                        <li class="list-group-item"><i class="fas fa-map-marker-alt icon-sm"></i> Proof of Address (Utility Bill or Bank Statement)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="mb-0"><i class="fas fa-sign-in-alt icon-sm"></i> How to Join</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-mouse-pointer icon-sm"></i>Apply online or email your application to:</li>
+                    <li class="list-group-item"><i class="fas fa-globe icon-sm"> </i>admin@diasporacreditunion.org</li>
+                        </ul>
+                    {% if not current_user.is_authenticated %}
+                        <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg"><i class="fas fa-user-plus icon-sm"></i> Register Online</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+{% endblock %}

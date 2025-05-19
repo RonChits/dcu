@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Media{% endblock %}
+
+{% block content %}
+<h1>News & Updates</h1>
+<p class="lead">Stay informed about our latest developments.</p>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <img src="{{ url_for('static', filename='images/news1.jpg') }}" class="card-img-top" alt="News Image">
+            <div class="card-body">
+                <h3 class="card-title">ZIDO Launches Diaspora Credit Union</h3>
+                <p class="card-text">The Zimbabwe International Development Organization has officially launched the Diaspora Credit Union to serve Zimbabweans worldwide.</p>
+                <a href="#" class="btn btn-primary">Read More</a>
+            </div>
+            <div class="card-footer text-muted">
+                Posted on January 15, 2023
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <img src="{{ url_for('static', filename='images/news2.jpg') }}" class="card-img-top" alt="News Image">
+            <div class="card-body">
+                <h3 class="card-title">Diaspora Credit Union Website Launch</h3>
+                <p class="card-text">Our new website makes it easier for members to access services and information from anywhere in the world.</p>
+                <a href="#" class="btn btn-primary">Read More</a>
+            </div>
+            <div class="card-footer text-muted">
+                Posted on March 5, 2023
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <img src="{{ url_for('static', filename='images/news3.jpg') }}" class="card-img-top" alt="News Image">
+            <div class="card-body">
+                <h3 class="card-title">Poultry Project Launch in Zvimba</h3>
+                <p class="card-text">DCU-funded poultry project creates employment and supports local farmers in Zvimba district.</p>
+                <a href="#" class="btn btn-primary">Read More</a>
+            </div>
+            <div class="card-footer text-muted">
+                Posted on May 20, 2023
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <img src="{{ url_for('static', filename='images/news4.jpg') }}" class="card-img-top" alt="News Image">
+            <div class="card-body">
+                <h3 class="card-title">Annual General Meeting 2023</h3>
+                <p class="card-text">Members gather to review performance and elect new board members at our first AGM.</p>
+                <a href="#" class="btn btn-primary">Read More</a>
+            </div>
+            <div class="card-footer text-muted">
+                Posted on July 10, 2023
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-body text-center">
+        <h3>For media inquiries</h3>
+        <p>Contact our communications team</p>
+        <a href="{{ url_for('contact') }}" class="btn btn-primary">Contact Press Office</a>
+    </div>
+</div>
+{% endblock %}

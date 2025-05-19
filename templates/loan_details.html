@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Loan Details{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Loan Details #{{ loan.id }}</h2>
+    
+    <div class="card mb-4">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Loan Type</dt>
+                <dd class="col-sm-9">{{ loan.loan_type|title }}</dd>
+                
+                <dt class="col-sm-3">Amount</dt>
+                <dd class="col-sm-9">${{ "%.2f"|format(loan.amount) }}</dd>
+                
+                <dt class="col-sm-3">Interest Rate</dt>
+                <dd class="col-sm-9">{{ "%.1f"|format(loan.interest_rate * 100) }}%</dd>
+                
+                <dt class="col-sm-3">Status</dt>
+                <dd class="col-sm-9">
+                    <span class="badge bg-{{ 'success' if loan.status == 'Approved' else 'warning' }}">
+                        {{ loan.status }}
+                    </span>
+                </dd>
+                
+                <dt class="col-sm-3">Date Applied</dt>
+                <dd class="col-sm-9">{{ loan.date_applied.strftime('%Y-%m-%d') }}</dd>
+                
+                {% if loan.status == 'Approved' %}
+                <dt class="col-sm-3">Due Date</dt>
+                <dd class="col-sm-9">{{ loan.due_date.strftime('%Y-%m-%d') }}</dd>
+                
+                <dt class="col-sm-3">Monthly Payment</dt>
+                <dd class="col-sm-9">${{ "%.2f"|format(loan.monthly_payment) }}</dd>
+                {% endif %}
+            </dl>
+            
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary">
+                Back to Dashboard
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

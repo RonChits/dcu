@@ -1,0 +1,445 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<style>
+    :root {
+        --primary: #191970;
+        --secondary: #ADD8E6;
+        --accent: #FF6B6B;
+        --dark: #0A0A2A;
+        --light: #F8F9FF;
+    }
+
+    body {
+        background-color: var(--dark);
+        color: white;
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    /* Hero Section Styles (Add social media icons here) */
+    .hero-section {
+        background:
+                    url('{{ url_for("static", filename="images/DSC_0121.jpg") }}');
+        background-size: cover;
+        background-position: center;
+        padding: 10rem 0 12rem; /* Increased bottom padding to accommodate icons */
+        position: relative;
+        clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        margin-bottom: -5rem;
+        display: flex; /* Enable flexbox for alignment */
+        flex-direction: column; /* Stack content vertically */
+        align-items: center; /* Center items horizontally */
+        justify-content: center; /* Center items vertically */
+    }
+
+    .hero-container {
+        background: rgba(25, 25, 112, 0.4);
+        backdrop-filter: blur(1px);
+        border-radius: 20px;
+        padding: 3rem;
+        max-width: 800px;
+        margin-bottom: 2rem; /* Add some space below the container */
+        border: 1px solid rgba(173, 216, 230, 0.2);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        transform: translateY(-6rem);
+        text-align: center; /* Center text within the container */
+    }
+
+    .social-icons {
+        margin-top: 2rem; /* Space between buttons and icons */
+    }
+
+    .social-icons a {
+        display: inline-block;
+        margin: 0 15px;
+        font-size: 2rem;
+        color: var(--secondary);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+        color: var(--light);
+    }
+
+    .hero-title {
+        color: var(--secondary);
+        font-weight: 700;
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .hero-subtitle {
+        font-size: 1.5rem;
+        opacity: 0.9;
+        margin-bottom: 2rem;
+    }
+
+    /* Feature Cards Section */
+    .features-section {
+        padding: 8rem 0 5rem;
+        background: var(--dark);
+        position: relative;
+        z-index: 2;
+    }
+
+    .feature-card {
+        background: linear-gradient(145deg, #1A1A4A, #0F0F33);
+        border-radius: 20px;
+        padding: 2.5rem;
+        height: 100%;
+        border: 1px solid rgba(173, 216, 230, 0.1);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .feature-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(173,216,230,0.1) 0%, rgba(0,0,0,0) 70%);
+        transition: all 0.6s ease;
+        opacity: 0;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    }
+
+    .feature-card:hover::before {
+        opacity: 1;
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        color: var(--secondary);
+        margin-bottom: 1.5rem;
+    }
+
+    /* Slideshow Section */
+    .slideshow-section {
+        padding: 5rem 0;
+        background: linear-gradient(to bottom, var(--dark), #121236);
+        clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
+        margin: -3rem 0;
+    }
+
+    .slideshow-container {
+        width: 100%;
+        height: 600px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .mySlides {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+        transform: translateX(100%);
+    }
+
+    .mySlides:first-child {
+        transform: translateX(0);
+    }
+
+    .mySlides img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .dots-container {
+        position: absolute;
+        bottom: 30px;
+        width: 100%;
+        text-align: center;
+        z-index: 10;
+    }
+
+    .dot {
+        cursor: pointer;
+        height: 14px;
+        width: 14px;
+        margin: 0 8px;
+        background-color: rgba(255,255,255,0.3);
+        border-radius: 50%;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+
+    .active, .dot:hover {
+        background-color: var(--secondary);
+        transform: scale(1.2);
+    }
+
+    /* Services Section */
+    .services-section {
+        padding: 8rem 0 6rem;
+        background: linear-gradient(to bottom, #121236, var(--dark));
+        clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 100%);
+    }
+
+    .section-title {
+        color: white;
+        font-size: 2.5rem;
+        margin-bottom: 4rem;
+        text-align: center;
+        position: relative;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: var(--secondary);
+        border-radius: 2px;
+    }
+
+    .service-card {
+        background: linear-gradient(145deg, #1A1A4A, #0F0F33);
+        border-radius: 20px;
+        overflow: hidden;
+        border: none;
+        transition: all 0.4s ease;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        margin-bottom: 2rem;
+    }
+
+    .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    }
+
+    .service-card img {
+        height: 220px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .service-card:hover img {
+        transform: scale(1.05);
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .card-title {
+        color: var(--secondary);
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .btn-primary {
+        background-color: var(--secondary);
+        border-color: var(--secondary);
+        color: var(--dark);
+        font-weight: 600;
+        padding: 0.6rem 1.5rem;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: transparent;
+        color: var(--secondary);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(173, 216, 230, 0.3);
+    }
+</style>
+
+<!-- Hero Section -->
+<section class="hero-section text-center">
+    <div class="hero-container py-3">
+        <h1 class="hero-title">Welcome to Diaspora Credit Union</h1>
+        <p class="hero-subtitle">Empowering Zimbabweans abroad and at home</p>
+        <div class="mt-4">
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('dashboard') }}" class="btn btn-primary btn-lg">My Dashboard</a>
+            {% endif %}
+        </div>
+    </div>
+     <div class="social-icons">
+        <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-square"></i></a>
+        <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter-square"></i></a>
+        <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram-square"></i></a>
+        </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Community Focused</h3>
+                    <p>Built by Zimbabweans, for Zimbabweans - we understand your unique financial needs.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Financial Services</h3>
+                    <p>Your money is protected with enterprise-grade security measures and insurance.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe-africa"></i>
+                    </div>
+                    <h3>Global Access</h3>
+                    <p>Manage your finances from anywhere in the world with our digital platform.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Slideshow Section -->
+<section class="slideshow-section">
+    <div class="container">
+        <div class="slideshow-container">
+            <div class="mySlides">
+                <img src="{{ url_for('static', filename='images/DSC_0102.jpg') }}">
+            </div>
+            <div class="mySlides">
+                <img src="{{ url_for('static', filename='images/DSC_0118.jpg') }}">
+            </div>
+            <div class="mySlides">
+                <img src="{{ url_for('static', filename='images/1.jpg') }}">
+            </div>
+            <div class="mySlides">
+                <img src="{{ url_for('static', filename='images/2.jpg') }}">
+            </div>
+            <div class="mySlides">
+                <img src="{{ url_for('static', filename='images/3.jpg') }}">
+            </div>
+
+            <div class="dots-container">
+                {% for i in range(1,6) %}
+                <span class="dot" onclick="currentSlide({{ i }})"></span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="services-section">
+    <div class="container">
+        <h2 class="section-title">Our Services</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="service-card">
+                    <img src="{{ url_for('static', filename='images/41.jpg') }}" class="card-img-top" alt="Membership">
+                    <div class="card-body">
+                        <h5 class="card-title">Membership</h5>
+                        <p class="card-text">Join our cooperative and enjoy exclusive financial benefits designed for the diaspora community.</p>
+                        <a href="{{ url_for('membership') }}" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service-card">
+                    <img src="{{ url_for('static', filename='images/credit-card-1591492_640.jpg') }}" class="card-img-top" alt="Loans">
+                    <div class="card-body">
+                        <h5 class="card-title">Loans</h5>
+                        <p class="card-text">Competitive loan products with flexible repayment terms tailored to your needs.</p>
+                        <a href="{{ url_for('loans') }}" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service-card">
+                    <img src="{{ url_for('static', filename='images/pants-1826127_640.jpg') }}" class="card-img-top" alt="Savings">
+                    <div class="card-body">
+                        <h5 class="card-title">Savings</h5>
+                        <p class="card-text">Grow your wealth with our high-yield savings accounts and investment plans.</p>
+                        <a href="{{ url_for('savings') }}" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script>
+// Slideshow functionality
+let slideIndex = 1;
+let slides = document.getElementsByClassName("mySlides");
+let dots = document.getElementsByClassName("dot");
+
+showSlides(slideIndex);
+
+function plusSlides(n) {
+    slides[slideIndex-1].style.transform = n > 0 ? "translateX(-100%)" : "translateX(100%)";
+    let newIndex = slideIndex + n;
+    if (newIndex > slides.length) { newIndex = 1 }
+    if (newIndex < 1) { newIndex = slides.length }
+    slides[newIndex-1].style.transform = n > 0 ? "translateX(100%)" : "translateX(-100%)";
+    setTimeout(() => {
+        slides[newIndex-1].style.transform = "translateX(0)";
+        slideIndex = newIndex;
+        updateDots();
+    }, 10);
+}
+
+function currentSlide(n) {
+    if (n === slideIndex) return;
+    const direction = n > slideIndex ? 1 : -1;
+    slides[slideIndex-1].style.transform = direction > 0 ? "translateX(-100%)" : "translateX(100%)";
+    slides[n-1].style.transform = direction > 0 ? "translateX(100%)" : "translateX(-100%)";
+    setTimeout(() => {
+        slides[n-1].style.transform = "translateX(0)";
+        slideIndex = n;
+        updateDots();
+    }, 10);
+}
+
+function showSlides(n) {
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.transform = i === n-1 ? "translateX(0)" :
+                                   i < n-1 ? "translateX(-100%)" : "translateX(100%)";
+    }
+    updateDots();
+}
+
+function updateDots() {
+    for (let i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    dots[slideIndex-1].className += " active";
+    clearTimeout(window.slideTimeout);
+    window.slideTimeout = setTimeout(() => {
+        plusSlides(1);
+    }, 5000);
+}
+</script>
+
+<!-- Font Awesome for icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+{% endblock %}

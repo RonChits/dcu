@@ -1,0 +1,349 @@
+{% extends "base.html" %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+<style>
+    .navbar {
+    background-color: #191970 !important;
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(173, 216, 230, 0.2);
+}
+
+/* Footer */
+footer {
+    background-color: #191970 !important;
+    backdrop-filter: blur(8px);
+    border-top: 1px solid rgba(173, 216, 230, 0.2);
+    color: white;
+    padding: 2rem 0;
+    margin-top: 3rem;
+}
+    :root {
+        --primary-color: #ADD8E6;  /* Light blue for headings */
+        --secondary-color: #FF6B6B; /* Coral for accents */
+        --text-color: #FFFFFF;     /* White for main text */
+        --shadow-md: 0 4px 6px rgba(0,0,0,0.3);
+    }
+
+    body {
+        background: linear-gradient(rgba(10, 10, 42, 0.85), rgba(10, 10, 42, 0.85)),
+                    url('{{ url_for("static", filename="images/23.jpg") }}');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: var(--text-color);
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        line-height: 1.6;
+        scroll-behavior: smooth;
+    }
+
+    /* Main container styling */
+    .about-section {
+        padding: 4rem 0;
+        background-color: rgba(25, 25, 112, 0.2); /* Semi-transparent dark blue */
+        backdrop-filter: blur(8px);
+        border-radius: 15px;
+        box-shadow: var(--shadow-md);
+        margin: 2rem auto;
+        border: 1px solid rgba(173, 216, 230, 0.2);
+    }
+
+    /* Card styling */
+    .card {
+        background-color: rgba(25, 25, 112, 0.3) !important;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(173, 216, 230, 0.2) !important;
+        border-radius: 10px !important;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin-bottom: 1.5rem;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .card-header {
+        background-color: rgba(25, 25, 112, 0.4) !important;
+        border-bottom: 1px solid rgba(173, 216, 230, 0.2) !important;
+    }
+
+    /* Text styling */
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--primary-color);
+        font-weight: 600;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .lead {
+        color: var(--text-color);
+        font-size: 1.2rem;
+        opacity: 0.9;
+    }
+
+    .card-text, .list-group-item {
+        color: var(--text-color);
+        opacity: 0.9;
+    }
+
+    /* Icon styling */
+    .icon-sm {
+        font-size: 1.2rem;
+        margin-right: 0.5rem;
+        color: var(--secondary-color);
+    }
+
+    /* List group items */
+    .list-group-item {
+        background-color: transparent !important;
+        border-color: rgba(173, 216, 230, 0.2) !important;
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1.25rem;
+        transition: all 0.3s ease;
+    }
+
+    .list-group-item:hover {
+        background-color: rgba(173, 216, 230, 0.1) !important;
+        transform: translateX(5px);
+    }
+
+    /* Team section */
+    .management-team-section {
+        padding: 3rem 0;
+    }
+
+    .team-member {
+        text-align: center;
+        margin-bottom: 2rem;
+        transition: all 0.3s ease;
+    }
+
+    .team-member:hover {
+        transform: translateY(-5px);
+    }
+
+    .team-member img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 1rem;
+        border: 3px solid var(--secondary-color);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .team-member h5 {
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .team-member p {
+        color: var(--text-color);
+        opacity: 0.8;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+        .about-section {
+            padding: 2rem 0;
+        }
+
+        .management-team-section .col {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .management-team-section .col {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    }
+</style>
+
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h1><i class="fas fa-info-circle icon-sm"></i> About Diaspora Credit Union</h1>
+                    <p class="lead"><i class="fas fa-building icon-sm"></i> DCU is the trading name of Zimbabweans in Diaspora Savings and Credit Cooperative Society Limited.</p>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3><i class="fas fa-info-circle icon-sm"></i> Our Vision</h3>
+                    <p class="card-text">To be the most trusted and preferred member-owned financial institution.</p>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3><i class="fas fa-info-circle icon-sm"></i> Our Mission</h3>
+                    <p class="card-text">To transform lives by offering affordable, innovative, and accessible financial products and services tailored to the needs of our members.</p>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2><i class="fas fa-info-circle icon-sm"></i> Our Core Values</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush mb-4">
+                                <li class="list-group-item"><i class="fas fa-check-double icon-sm"></i> Honesty</li>
+                                <li class="list-group-item"><i class="fas fa-gavel icon-sm"></i> Integrity</li>
+                                <li class="list-group-item"><i class="fas fa-hand-holding-usd icon-sm"></i> Accountability</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush mb-4">
+                                <li class="list-group-item"><i class="fas fa-users icon-sm"></i> Respect for Members</li>
+                                <li class="list-group-item"><i class="fas fa-briefcase icon-sm"></i> Professionalism</li>
+                                <li class="list-group-item"><i class="fas fa-award icon-sm"></i> Commitment to Excellence</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="management-team-section">
+                <div class="card">
+                    <div class="card-body">
+                        <h2><i class="fas fa-users-cog icon-sm"></i> Management Team</h2>
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            <div class="col team-member">
+                                <img src="{{ url_for('static', filename='images/1.jpg') }}" alt="Chairman">
+                                <h5>Blessed Kapesa</h5>
+                                <p>Chairman</p>
+                            </div>
+                            <div class="col team-member">
+                                <img src="{{ url_for('static', filename='images/2.jpg') }}" alt="Vice Chairman">
+                                <h5>Alexander Dhomani</h5>
+                                <p>Vice Chairman</p>
+                            </div>
+                            <div class="col team-member">
+                                <img src="{{ url_for('static', filename='images/DSC_0025.jpg') }}" alt="Secretary">
+                                <h5>Lisa Govera</h5>
+                                <p>Secretary</p>
+                            </div>
+                            <div class="col team-member">
+                                <img src="{{ url_for('static', filename='images/DSC_0033.jpg') }}" alt="Treasurer">
+                                <h5>Josphat Madziyire</h5>
+                                <p>Treasurer</p>
+                            </div>
+                            <div class="col team-member">
+                                <img src="{{ url_for('static', filename='images/DSC_0031.jpg') }}" alt="Committee Member">
+                                <h5>Joyce Dhomhani</h5>
+                                <p>Committee Member</p>
+                            </div>
+                            <div class="col team-member">
+                                <img src="{{ url_for('static', filename='images/DSC_0027.jpg') }}" alt="Committee Member">
+                                <h5>Thelma Murakasha</h5>
+                                <p>Committee Member</p>
+                            </div>
+                            <div class="col team-member">
+                                <img src="{{ url_for('static', filename='images/DSC_0047.jpg') }}" alt="Committee Member">
+                                <h5>Farai Mushawetu</h5>
+                                <p>Committee Member</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3><i class="fas fa-users icon-sm"></i> Management Team</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-user-tie icon-sm"></i> Blessed Kapesa – Chairman</li>
+                        <li class="list-group-item"><i class="fas fa-user-tie icon-sm"></i> Alexander Dhomani – Vice Chairman</li>
+                        <li class="list-group-item"><i class="fas fa-user icon-sm"></i> Lisa Govera – Secretary</li>
+                        <li class="list-group-item"><i class="fas fa-briefcase icon-sm"></i> Josphat Madziyire – Treasurer</li>
+                        <li class="list-group-item"><i class="fas fa-user icon-sm"></i> Joyce Dhomhani – Committee</li>
+                        <li class="list-group-item"><i class="fas fa-user icon-sm"></i> Thelma Murakasha – Committee</li>
+                        <li class="list-group-item"><i class="fas fa-user icon-sm"></i> Farai Mushawetu – Committee</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3 ><i class="fas fa-sitemap icon-sm"></i> Board Members</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-user icon-sm"></i> Joyce Dhomhani</li>
+                        <li class="list-group-item"><i class="fas fa-user icon-sm"></i> Thelma Murakasha</li>
+                        <li class="list-group-item"><i class="fas fa-user icon-sm"></i> Farai Mushawetu</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3><i class="fas fa-graduation-cap icon-sm"></i> Information, Education and Training Committee</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-user icon-sm"></i> Joyce Dhomhani</li>
+                        <li class="list-group-item"><i class="fas fa-user icon-sm"></i> Thelma Murakasha</li>
+                        <li class="list-group-item"><i class="fas fa-user icon-sm"></i> Farai Mushawetu</li>
+                    </ul>
+                </div>
+            </div>
+</div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3><i class="fas fa-credit-card icon-sm"></i> Credit Committee</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-user icon-sm"></i> Joyce Dhomhani</li>
+                        <li class="list-group-item"><i class="fas fa-user icon-sm"></i> Thelma Murakasha</li>
+                        <li class="list-group-item"><i class="fas fa-user icon-sm"></i> Farai Mushawetu</li>
+                    </ul>
+                </div>
+                <div class="credit-union-address">
+
+
+        </div>
+                </div>
+
+    </div>
+<div class="card mb-4">
+               <div class="card-header">
+                    <h3><i class="fas fa-credit-card icon-sm"></i> Address</h3>
+                </div>
+               <div class="card-body address-card">
+              <div class="card-body address-card text-white">
+  <address class="m-0">
+    <div class="address-line d-flex align-items-center mb-2">
+      <i class="fas fa-building icon-sm me-2"></i>
+      <span>4th Floor, Mass Media House</span>
+    </div>
+    <div class="address-line d-flex align-items-center mb-2">
+      <i class="fas fa-map-marker-alt icon-sm me-2"></i>
+      <span>19 Selous Avenue</span>
+    </div>
+    <div class="address-line d-flex align-items-center">
+      <i class="fas fa-globe-africa icon-sm me-2"></i>
+      <span>Harare, Zimbabwe</span>
+    </div>
+  </address>
+</div>
+
+           </div>
+
+<!-- Font Awesome for icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+{% endblock %}

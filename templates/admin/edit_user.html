@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Admin - Edit User{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Edit User</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="{{ url_for('admin_loans') }}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for('admin_loans') }}">Users</a></li>
+        <li class="breadcrumb-item active">Edit User</li>
+    </ol>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-user-edit me-1"></i>
+            Edit User Details
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{{ url_for('edit_user', user_id=user.id) }}">
+                {{ form.hidden_tag() }}
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            {{ form.username(class="form-control", placeholder="Username") }}
+                            {{ form.username.label }}
+                            {% for error in form.username.errors %}
+                                <div class="invalid-feedback d-block">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            {{ form.email(class="form-control", placeholder="Email") }}
+                            {{ form.email.label }}
+                            {% for error in form.email.errors %}
+                                <div class="invalid-feedback d-block">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            {{ form.first_name(class="form-control", placeholder="First Name") }}
+                            {{ form.first_name.label }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            {{ form.last_name(class="form-control", placeholder="Last Name") }}
+                            {{ form.last_name.label }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            {{ form.phone(class="form-control", placeholder="Phone") }}
+                            {{ form.phone.label }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            {{ form.membership_type(class="form-select") }}
+                            {{ form.membership_type.label }}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="mt-4 mb-0">
+                    <button type="submit" class="btn btn-primary">Update User</button>
+                    <a href="{{ url_for('admin_users') }}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

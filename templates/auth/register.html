@@ -1,0 +1,429 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<style>
+    /* Navbar styles (consistent with other pages) */
+    .navbar {
+        background-color: #191970 !important;
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid rgba(173, 216, 230, 0.2);
+    }
+
+    /* Footer styles (consistent with other pages) */
+    footer {
+        background-color: #191970 !important;
+        backdrop-filter: blur(8px);
+        border-top: 1px solid rgba(173, 216, 230, 0.2);
+        color: white;
+        padding: 2rem 0;
+        margin-top: 3rem;
+    }
+
+    :root {
+        --primary-color: #ADD8E6; /* Light blue for headings */
+        --secondary-color: #FF6B6B; /* Coral for accents */
+        --text-color: #FFFFFF; /* White for main text */
+        --shadow-md: 0 4px 6px rgba(0,0,0,0.3);
+    }
+
+    body {
+        background: linear-gradient(rgba(10, 10, 42, 0.85), rgba(10, 10, 42, 0.85)),
+                    url('{{ url_for("static", filename="images/23.jpg") }}'); /* Use the same background */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: var(--text-color);
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        line-height: 1.6;
+        scroll-behavior: smooth;
+    }
+
+    /* Register section styling */
+    .register-section {
+        padding: 4rem 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 56px - 68px); /* Adjust for header and footer */
+    }
+
+    .card {
+        background-color: rgba(25, 25, 112, 0.3) !important;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(173, 216, 230, 0.2) !important;
+        border-radius: 10px !important;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        max-width: 700px;
+        width: 100%;
+    }
+
+    .card-header {
+        background-color: rgba(25, 25, 112, 0.4) !important;
+        border-bottom: 1px solid rgba(173, 216, 230, 0.2) !important;
+        color: var(--primary-color);
+        font-weight: 600;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        padding: 1rem 1.5rem;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .card-title {
+        margin-bottom: 0;
+        font-size: 1.5rem;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    h4 {
+        color: var(--primary-color);
+        font-weight: 600;
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .form-label {
+        color: var(--primary-color);
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-control {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        border: 1px solid rgba(173, 216, 230, 0.4) !important;
+        color: var(--text-color) !important;
+        border-radius: 5px;
+        padding: 0.75rem;
+    }
+
+    .form-control:focus {
+        border-color: var(--secondary-color) !important;
+        box-shadow: 0 0 0 0.2rem rgba(255, 107, 107, 0.25);
+        background-color: rgba(255, 255, 255, 0.2) !important;
+    }
+
+    .form-check-label {
+        color: var(--text-color);
+        opacity: 0.9;
+    }
+
+    .btn-primary {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        color: var(--text-color);
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #d35400;
+        border-color: #d35400;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .text-center a {
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .text-center a:hover {
+        color: var(--secondary-color);
+    }
+
+    .card-footer {
+        background-color: rgba(25, 25, 112, 0.4) !important;
+        border-top: 1px solid rgba(173, 216, 230, 0.2) !important;
+        border-radius: 0 0 10px 10px;
+        padding: 1rem 1.5rem;
+        color: var(--text-color);
+        opacity: 0.9;
+    }
+
+    .modal-content {
+        background-color: rgba(25, 25, 112, 0.8) !important;
+        color: var(--text-color);
+        border: 1px solid rgba(173, 216, 230, 0.2);
+        border-radius: 10px;
+        box-shadow: var(--shadow-md);
+    }
+
+    .modal-header {
+        border-bottom: 1px solid rgba(173, 216, 230, 0.2);
+    }
+
+    .modal-title {
+        color: var(--primary-color);
+    }
+
+    .modal-body h5 {
+        color: var(--primary-color);
+        margin-top: 1rem;
+    }
+
+    .modal-body ul {
+        padding-left: 1.5rem;
+    }
+
+    .modal-body li {
+        margin-bottom: 0.5rem;
+    }
+
+    .modal-footer button {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        color: var(--text-color);
+        transition: all 0.3s ease;
+    }
+
+    .modal-footer button:hover {
+        background-color: #d35400;
+        border-color: #d35400;
+    }
+</style>
+
+<div class="register-section">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title mb-0"><i class="fas fa-user-plus icon-sm"></i> Membership Registration</h3>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{{ url_for('register') }}" id="registrationForm">
+                {{ form.hidden_tag() }}  <!-- CSRF Token -->
+
+                <h4 class="mb-3"><i class="fas fa-id-card icon-sm"></i> Personal Information</h4>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        {{ form.first_name.label(class="form-label") }}
+                        <i class="fas fa-user icon-sm"></i>
+                        {{ form.first_name(class="form-control", placeholder="Enter your first name") }}
+                        {% if form.first_name.errors %}
+                            <div class="text-danger">
+                                {% for error in form.first_name.errors %}
+                                    <small>{{ error }}</small><br>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        {{ form.last_name.label(class="form-label") }}
+                        <i class="fas fa-user icon-sm"></i>
+                        {{ form.last_name(class="form-control", placeholder="Enter your last name") }}
+                        {% if form.last_name.errors %}
+                            <div class="text-danger">
+                                {% for error in form.last_name.errors %}
+                                    <small>{{ error }}</small><br>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    {{ form.email.label(class="form-label") }}
+                    <i class="fas fa-envelope icon-sm"></i>
+                    {{ form.email(class="form-control", placeholder="Enter your email") }}
+                    {% if form.email.errors %}
+                        <div class="text-danger">
+                            {% for error in form.email.errors %}
+                                <small>{{ error }}</small><br>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.phone.label(class="form-label") }}
+                    <i class="fas fa-phone icon-sm"></i>
+                    {{ form.phone(class="form-control", placeholder="Enter your phone number") }}
+                    {% if form.phone.errors %}
+                        <div class="text-danger">
+                            {% for error in form.phone.errors %}
+                                <small>{{ error }}</small><br>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <h4 class="mb-3 mt-4"><i class="fas fa-key icon-sm"></i> Account Details</h4>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        {{ form.password.label(class="form-label") }}
+                        <i class="fas fa-lock icon-sm"></i>
+                        {{ form.password(class="form-control", placeholder="Create password (min 8 chars)") }}
+                        {% if form.password.errors %}
+                            <div class="text-danger">
+                                {% for error in form.password.errors %}
+                                    <small>{{ error }}</small><br>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        {{ form.confirm_password.label(class="form-label") }}
+                        <i class="fas fa-check-circle icon-sm"></i>
+                        {{ form.confirm_password(class="form-control", placeholder="Confirm your password") }}
+                        {% if form.confirm_password.errors %}
+                            <div class="text-danger">
+                                {% for error in form.confirm_password.errors %}
+                                    <small>{{ error }}</small><br>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                        <!-- Replace just the membership type section with this: -->
+<h4 class="mb-3 mt-4"><i class="fas fa-clipboard-list icon-sm"></i> Membership Type</h4>
+<div class="mb-3">
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="membership_type" id="diaspora" value="diaspora"
+               {% if form.membership_type.data == 'diaspora' %} checked{% endif %}>
+        <label class="form-check-label" for="diaspora">
+            <i class="fas fa-globe-africa icon-sm"></i> Diaspora Based Member ($30 fee)
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="membership_type" id="urban" value="urban"
+               {% if form.membership_type.data == 'urban' %}checked{% endif %}>
+        <label class="form-check-label" for="urban">
+            <i class="fas fa-city icon-sm"></i> Zimbabwe Urban-Based ($20 fee)
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="membership_type" id="rural" value="rural"
+               {% if form.membership_type.data == 'rural' %}checked{% endif %}>
+        <label class="form-check-label" for="rural">
+            <i class="fas fa-tree icon-sm"></i> Zimbabwe Rural-Based ($10 fee)
+        </label>
+    </div>
+    {% if form.membership_type.errors %}
+        <div class="text-danger">
+            {% for error in form.membership_type.errors %}
+                <small>{{ error }}</small><br>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
+                    <label class="form-check-label" for="terms">
+                        <i class="fas fa-file-contract icon-sm"></i> I agree to the
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms and Conditions</a>
+                    </label>
+                </div>
+
+                {{ form.submit(class="btn btn-primary w-100") }}
+                <i class="fas fa-user-plus icon-sm"></i>
+            </form>
+        </div>
+        <div class="card-footer text-center">
+            Already a member? <a href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt icon-sm"></i> Login here</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="termsModalLabel"><i class="fas fa-file-alt icon-sm"></i> Terms and Conditions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5><i class="fas fa-handshake icon-sm"></i> 1. Membership Agreement</h5>
+                <p>By registering with Diaspora Credit Union (DCU), you agree to:</p>
+                <ul>
+                    <li><i class="fas fa-chart-line icon-sm"></i> Maintain the minimum required shares for your membership category</li>
+                    <li><i class="fas fa-calendar-alt icon-sm"></i> Make regular monthly deposits as specified</li>
+                    <li><i class="fas fa-gavel icon-sm"></i> Abide by the credit union's bylaws and policies</li>
+                </ul>
+
+                <h5 class="mt-4"><i class="fas fa-coins icon-sm"></i> 2. Fees and Charges</h5>
+                <ul>
+                    <li><i class="fas fa-money-bill-alt icon-sm"></i> Registration fees are non-refundable</li>
+                    <li><i class="fas fa-dollar-sign icon-sm"></i> Monthly service charges apply to all accounts</li>
+                    <li><i class="fas fa-exclamation-triangle icon-sm"></i> Late loan payments may incur additional fees</li>
+                </ul>
+
+                <h5 class="mt-4"><i class="fas fa-shield-alt icon-sm"></i> 3. Data Protection</h5>
+                <p>We collect and process your personal data in accordance with our Privacy Policy. We will:</p>
+                <ul>
+                    <li><i class="fas fa-lock icon-sm"></i> Keep your information secure</li>
+                    <li><i class="fas fa-check-circle icon-sm"></i> Only use it for legitimate credit union purposes</li>
+                    <li><i class="fas fa-share-alt icon-sm"></i> Not share it with third parties without your consent</li>
+                </ul>
+
+                <h5 class="mt-4"><i class="fas fa-user-cog icon-sm"></i> 4. Account Management</h5>
+                <ul>
+                    <li><i class="fas fa-pencil-alt icon-sm"></i> You are responsible for maintaining accurate account information</li>
+                    <li><i class="fas fa-bell icon-sm"></i> You must notify us immediately of any changes to your contact details</li>
+                    <li><i class="fas fa-ban icon-sm"></i> Accounts may be suspended for violation of terms</li>
+                </ul>
+
+                <h5 class="mt-4"><i class="fas fa-hand-holding-usd icon-sm"></i> 5. Loan Policies</h5>
+                <ul>
+                    <li><i class="fas fa-thumbs-up icon-sm"></i> Loans are subject to approval based on eligibility criteria</li>
+                    <li><i class="fas fa-exclamation-circle icon-sm"></i> Defaulting on loans may affect your membership status</li>
+                    <li><i class="fas fa-users icon-sm"></i> Guarantors share responsibility for loan repayment</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times icon-sm"></i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+// Enhanced password validation
+document.getElementById('registrationForm').addEventListener('submit', function(e) {
+    // Password match validation
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm_password').value;
+
+    if (password !== confirmPassword) {
+        e.preventDefault();
+        alert('Passwords do not match!');
+        return false;
+    }
+
+    // Terms agreement validation
+    if (!document.getElementById('terms').checked) {
+        e.preventDefault();
+        alert('You must agree to the Terms and Conditions');
+        return false;
+    }
+
+    // Password complexity validation
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumbers = /\d/.test(password);
+
+    if (!hasUpperCase || !hasLowerCase || !hasNumbers) {
+        e.preventDefault();
+        alert('Password must contain at least one uppercase letter, one lowercase letter, and one number');
+        return false;
+    }
+
+    return true;
+});
+
+// Real-time password strength indicator
+document.getElementById('password').addEventListener('input', function() {
+    const password = this.value;
+    const strengthIndicator = document.getElementById('password-strength');
+
+    // Add your password strength logic here if you want to display it
+});
+</script>
+{% endblock %}
+{% endblock %}

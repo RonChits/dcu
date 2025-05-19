@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Membership Registration</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('auth.register') }}">
+                    <h4 class="mb-3">Personal Information</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="first_name" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="last_name" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" required>
+                    </div>
+
+                    <h4 class="mb-3 mt-4">Account Details</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="confirm_password" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                        </div>
+                    </div>
+
+                    <h4 class="mb-3 mt-4">Membership Type</h4>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="membership_type" id="diaspora" value="diaspora" checked>
+                            <label class="form-check-label" for="diaspora">
+                                Diaspora Based Member ($30 fee)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="membership_type" id="urban" value="urban">
+                            <label class="form-check-label" for="urban">
+                                Zimbabwe Urban-Based ($20 fee)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="membership_type" id="rural" value="rural">
+                            <label class="form-check-label" for="rural">
+                                Zimbabwe Rural-Based ($10 fee)
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
+                        <label class="form-check-label" for="terms">I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms and Conditions</a></label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Complete Registration</button>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                Already a member? <a href="{{ url_for('auth.login') }}">Login here</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Terms Modal -->
+<div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5>1. Membership Agreement</h5>
+                <p>By registering with Diaspora Credit Union (DCU), you agree to:</p>
+                <ul>
+                    <li>Maintain the minimum required shares for your membership category</li>
+                    <li>Make regular monthly deposits as specified</li>
+                    <li>Abide by the credit union's bylaws and policies</li>
+                </ul>
+
+                <h5 class="mt-4">2. Fees and Charges</h5>
+                <ul>
+                    <li>Registration fees are non-refundable</li>
+                    <li>Monthly service charges apply to all accounts</li>
+                    <li>Late loan payments may incur additional fees</li>
+                </ul>
+
+                <h5 class="mt-4">3. Data Protection</h5>
+                <p>We collect and process your personal data in accordance with our Privacy Policy. We will:</p>
+                <ul>
+                    <li>Keep your information secure</li>
+                    <li>Only use it for legitimate credit union purposes</li>
+                    <li>Not share it with third parties without your consent</li>
+                </ul>
+
+                <h5 class="mt-4">4. Account Management</h5>
+                <ul>
+                    <li>You are responsible for maintaining accurate account information</li>
+                    <li>You must notify us immediately of any changes to your contact details</li>
+                    <li>Accounts may be suspended for violation of terms</li>
+                </ul>
+
+                <h5 class="mt-4">5. Loan Policies</h5>
+                <ul>
+                    <li>Loans are subject to approval based on eligibility criteria</li>
+                    <li>Defaulting on loans may affect your membership status</li>
+                    <li>Guarantors share responsibility for loan repayment</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Add password validation
+document.getElementById('registrationForm').addEventListener('submit', function(e) {
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm_password').value;
+
+    if (password !== confirmPassword) {
+        e.preventDefault();
+        alert('Passwords do not match!');
+        return false;
+    }
+
+    if (!document.getElementById('terms').checked) {
+        e.preventDefault();
+        alert('You must agree to the Terms and Conditions');
+        return false;
+    }
+
+    return true;
+});
+</script>
+{% endblock %}

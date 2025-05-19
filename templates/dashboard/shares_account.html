@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Shares Account{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Shares Account</h2>
+    
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Current Shares</h5>
+                    <p class="display-4">{{ current_user.shares }}</p>
+                    <p class="text-muted">Value: ${{ "%.2f"|format(current_user.shares * 10) }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3>Transaction History</h3>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Shares</th>
+                    <th>Total Shares</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in shares_transactions %}
+                <tr>
+                    <td>{{ transaction.date.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ transaction.description }}</td>
+                    <td class="{{ 'text-success' if transaction.shares > 0 else 'text-danger' }}">
+                        {{ transaction.shares }}
+                    </td>
+                    <td>{{ transaction.total_shares }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" class="text-center">No transactions found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-3">
+        <a href="{{ url_for('buy_shares') }}" class="btn btn-primary me-2">Buy Shares</a>
+        <a href="{{ url_for('sell_shares') }}" class="btn btn-outline-primary">Sell Shares</a>
+    </div>
+</div>
+{% endblock %}

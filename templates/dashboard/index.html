@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}Member Dashboard{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Member Dashboard</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a href="{{ url_for('apply_loan') }}" class="btn btn-sm btn-primary">Apply for Loan</a>
+            <a href="{{ url_for('open_account') }}" class="btn btn-sm btn-outline-secondary">Open New Account</a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <h5 class="card-title">Savings Balance</h5>
+                <p class="card-text display-6">${{ current_user.savings_balance }}</p>
+                <a href="#" class="text-white">View Details</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h5 class="card-title">Shares Value</h5>
+                <p class="card-text display-6">${{ current_user.shares * 10 }}</p>
+                <a href="#" class="text-white">View Details</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card text-white bg-info">
+            <div class="card-body">
+                <h5 class="card-title">Active Loans</h5>
+                <p class="card-text display-6">{{ current_user.loans|length }}</p>
+                <a href="#" class="text-white">View Details</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2 class="h4 mt-4">Recent Transactions</h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>2023-08-15</td>
+                <td>Monthly Deposit</td>
+                <td>$50.00</td>
+                <td>$550.00</td>
+            </tr>
+            <tr>
+                <td>2023-08-10</td>
+                <td>Dividend Payment</td>
+                <td>$12.50</td>
+                <td>$500.00</td>
+            </tr>
+            <tr>
+                <td>2023-08-01</td>
+                <td>Service Charge</td>
+                <td>-$5.00</td>
+                <td>$487.50</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2 class="h4 mt-4">Your Active Loans</h2>
+{% if current_user.loans %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Loan Type</th>
+                    <th>Amount</th>
+                    <th>Date Issued</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for loan in current_user.loans %}
+                <tr>
+                    <td>{{ loan.loan_type }}</td>
+                    <td>${{ loan.amount }}</td>
+                    <td>{{ loan.date_applied.strftime('%Y-%m-%d') }}</td>
+                    <td><span class="badge bg-{{ 'success' if loan.status == 'Approved' else 'warning' }}">{{ loan.status }}</span></td>
+                    <td><a href="#" class="btn btn-sm btn-outline-primary">Details</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="alert alert-info">
+        You currently have no active loans. <a href="{{ url_for('apply_loan') }}" class="alert-link">Apply for a loan</a> if you need financial assistance.
+    </div>
+{% endif %}
+{% endblock %}

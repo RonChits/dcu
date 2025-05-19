@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Savings Account{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Savings Account</h2>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Current Balance</h5>
+                    <p class="display-4">${{ "%.2f"|format(current_user.savings_balance) }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3>Transaction History</h3>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in savings_transactions %}
+                <tr>
+                    <td>{{ transaction.date.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ transaction.description }}</td>
+                    <td class="{{ 'text-success' if transaction.amount >= 0 else 'text-danger' }}">
+                        ${{ "%.2f"|format(transaction.amount) }}
+                    </td>
+                    <td>${{ "%.2f"|format(transaction.balance) }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" class="text-center">No transactions found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-3">
+        <a href="{{ url_for('make_deposit') }}" class="btn btn-primary me-2">Make Deposit</a>
+        <a href="{{ url_for('make_withdrawal') }}" class="btn btn-outline-primary">Make Withdrawal</a>
+    </div>
+</div>
+{% endblock %}
